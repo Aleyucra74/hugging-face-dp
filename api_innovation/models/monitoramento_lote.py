@@ -1,5 +1,6 @@
 from sql_alchemy import banco
-from requisicao import RequisicaoModel
+from datetime import datetime
+from models.requisicao import RequisicaoModel
 
 class MonitoramentoLoteModel(banco.Model):
     __tablename__ = 'tblMonitoramentoLote'
@@ -8,6 +9,8 @@ class MonitoramentoLoteModel(banco.Model):
     molData = banco.Column(banco.DateTime)
     arsCodigo = banco.Column(banco.Integer)
     molCaminhoArquivo = banco.Column(banco.String(200))
+    molNomeFisico = banco.Column(banco.String(200))
+    molNomeLogico = banco.Column(banco.String(200))
     artCodigo = banco.Column(banco.Integer)
 
     def __init__(self,
@@ -37,10 +40,19 @@ class MonitoramentoLoteModel(banco.Model):
         return None
 
     @classmethod
-    def save_lote(self, monitoramento_lote):
+    def save_lote(self, filename):
+        monitoramento_lote = MonitoramentoLoteModel(molCaminhoArquivo=filename,
+                                                    molData=datetime.today(),
+                                                    arsCodigo=1,
+                                                    artCodigo=3)
+
         banco.session.add(monitoramento_lote)
         banco.session.commit()
-        RequisicaoModel.save_requisicao(monitoramento_lote['molCodigo'])
+
+        codigo = banco.session.execute('innovation_ContarMonitoramentoLote_s').first()
+
+        token = RequisicaoModel.save_requisicao_monitoramento(codigo)
+        return token
 
 
     @classmethod

@@ -1,7 +1,8 @@
 import secrets
 import urllib.parse
 
-UPLOAD_FOLDER = 'C:\\Users\\rysilva\\Desktop\\api_innovation\\content\\operacao\\'
+# UPLOAD_FOLDER = 'C:\\Users\\rysilva\\Desktop\\api_innovation\\content\\operacao\\'
+UPLOAD_FOLDER = 'C:\\Users\\rysilva\\Documents\\INNOVATION\\hugging-face-dp\\api_innovation\\content\\operacao\\'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 SECRET_KEY = secrets.token_hex(16)
 

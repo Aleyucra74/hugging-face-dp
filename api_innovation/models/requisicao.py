@@ -1,5 +1,6 @@
 from sql_alchemy import banco
 import uuid
+from datetime import datetime
 
 class RequisicaoModel(banco.Model):
 
@@ -52,11 +53,23 @@ class RequisicaoModel(banco.Model):
             return req
         return None
 
+    # @classmethod
+    # def save_requisicao(self, req):
+    #     req['rmlService_ID'] = str(uuid.uuid4())
+    #     banco.session.add(req)
+    #     banco.session.commit()
+
     @classmethod
-    def save_requisicao(self, req):
-        req['rmlService_ID'] = str(uuid.uuid4())
+    def save_requisicao_monitoramento(self, molCodigo):
+        req = RequisicaoModel(molCodigo=molCodigo,
+                              arsCodigo=1,
+                              rmlService_ID=str(uuid.uuid4()),
+                              rmlDataInicioVerificacao=datetime.today())
+
         banco.session.add(req)
         banco.session.commit()
+
+        return req.rmlService_ID
 
 
     @classmethod

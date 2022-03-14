@@ -17,13 +17,3 @@ class Requisicao(Resource):
             return req.json()
         return {'message': 'request not found'}, 404
 
-    # @jwt_required()
-    # def delete(self, rmlCodigo):
-    #     req = RequisicaoModel.find_requisicao(rmlCodigo)
-    #     if req:
-    #         try:
-    #             req.delete_requisicao(req)
-    #         except:
-    #             return {'message': 'An internal error occured trying to delete request.'}, 500
-    #         return {'message': 'Request deleted.'}
-    #     return {'message': 'Request not found.'}, 404

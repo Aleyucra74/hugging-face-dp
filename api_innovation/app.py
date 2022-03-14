@@ -6,7 +6,7 @@ import pyodbc
 import config
 from resources.notas import Upload
 from resources.usuario import User, UserRegister, UserLogin, UserLogout
-from resources.requisicao import Requisicao
+from resources.monitoramento_lote import MonitoramentoLote
 from blocklist import BLOCKLIST
 
 app = Flask(__name__)
@@ -36,7 +36,8 @@ api.add_resource(User, '/usuarios/<int:user_id>')
 api.add_resource(UserRegister, '/cadastro')
 api.add_resource(UserLogin, '/login')
 api.add_resource(UserLogout, '/logout')
-api.add_resource(Requisicao, '/requisicao')
+# api.add_resource(Requisicao, '/requisicao/<int:service_ID>')
+api.add_resource(MonitoramentoLote, '/monitoramento-lote')
 
 if __name__=='__main__':
     from sql_alchemy import banco
