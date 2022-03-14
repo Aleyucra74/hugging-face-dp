@@ -1,15 +1,17 @@
 from flask import Flask, jsonify
 from flask_restful import  Api
 from flask_jwt_extended import JWTManager
+import pyodbc
 
 import config
 from resources.notas import Upload
 from resources.usuario import User, UserRegister, UserLogin, UserLogout
+from resources.requisicao import Requisicao
 from blocklist import BLOCKLIST
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect=%s" % config.PARAMS
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = config.SECRET_KEY
 app.config['JWT_BLACKLIST_ENABLED'] = True
@@ -34,6 +36,7 @@ api.add_resource(User, '/usuarios/<int:user_id>')
 api.add_resource(UserRegister, '/cadastro')
 api.add_resource(UserLogin, '/login')
 api.add_resource(UserLogout, '/logout')
+api.add_resource(Requisicao, '/requisicao')
 
 if __name__=='__main__':
     from sql_alchemy import banco
