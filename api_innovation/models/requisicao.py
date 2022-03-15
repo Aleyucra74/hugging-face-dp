@@ -1,6 +1,7 @@
 from sql_alchemy import banco
 import uuid
 from datetime import datetime
+import json
 
 class RequisicaoModel(banco.Model):
 
@@ -25,7 +26,8 @@ class RequisicaoModel(banco.Model):
         self.rmlDataInicioVerificacao = rmlDataInicioVerificacao
 
     def json(self):
-        return {
+
+        requisicao = {
             'rmlCodigo': self.rmlCodigo,
             'molCodigo': self.molCodigo,
             'rmlService_ID': self.rmlService_ID,
@@ -34,6 +36,7 @@ class RequisicaoModel(banco.Model):
             'rmlDataFimVerificacao': self.rmlDataFimVerificacao,
             'rmlMensagemErro': self.rmlMensagemErro
         }
+        return json.dumps(requisicao, default=str)
 
     @classmethod
     def find_requisicao(cls, rmlService_ID):

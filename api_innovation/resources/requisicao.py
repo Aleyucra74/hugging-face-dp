@@ -10,7 +10,7 @@ atributos.add_argument('rmlDataInicioVerificacao', type=inputs.datetime_from_iso
 
 class Requisicao(Resource):
 
-    @jwt_required()
+    # @jwt_required()
     def get(self, service_ID):
         req = RequisicaoModel.find_requisicao(service_ID)
         if req:
