@@ -8,25 +8,21 @@ class RequisicaoModel(banco.Model):
 
     rmlCodigo = banco.Column(banco.Integer, primary_key=True)
     molCodigo = banco.Column(banco.Integer)
-    rmlService_ID = banco.Column(banco.Integer)
+    rmlService_ID = banco.Column(banco.String(500))
     arsCodigo = banco.Column(banco.Integer)
     rmlDataInicioVerificacao = banco.Column(banco.DateTime)
     rmlDataFimVerificacao = banco.Column(banco.DateTime)
-    rmlMensagemErro = banco.Column(banco.String(5000))
+    rmlMensagemErro = banco.Column(banco.String(200))
 
     def __init__(self,
                  molCodigo,
                  rmlService_ID,
                  arsCodigo,
-                 rmlDataInicioVerificacao,
-                 rmlDataFimVerificacao,
-                 rmlMensagemErro):
+                 rmlDataInicioVerificacao):
         self.molCodigo = molCodigo
         self.rmlService_ID = rmlService_ID
         self.arsCodigo = arsCodigo
         self.rmlDataInicioVerificacao = rmlDataInicioVerificacao
-        self.rmlDataFimVerificacao = rmlDataFimVerificacao
-        self.rmlMensagemErro = rmlMensagemErro
 
     def json(self):
         return {
@@ -53,17 +49,11 @@ class RequisicaoModel(banco.Model):
             return req
         return None
 
-    # @classmethod
-    # def save_requisicao(self, req):
-    #     req['rmlService_ID'] = str(uuid.uuid4())
-    #     banco.session.add(req)
-    #     banco.session.commit()
-
     @classmethod
     def save_requisicao_monitoramento(self, molCodigo):
         req = RequisicaoModel(molCodigo=molCodigo,
-                              arsCodigo=1,
                               rmlService_ID=str(uuid.uuid4()),
+                              arsCodigo=1,
                               rmlDataInicioVerificacao=datetime.today())
 
         banco.session.add(req)

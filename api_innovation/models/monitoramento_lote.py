@@ -9,8 +9,6 @@ class MonitoramentoLoteModel(banco.Model):
     molData = banco.Column(banco.DateTime)
     arsCodigo = banco.Column(banco.Integer)
     molCaminhoArquivo = banco.Column(banco.String(200))
-    molNomeFisico = banco.Column(banco.String(200))
-    molNomeLogico = banco.Column(banco.String(200))
     artCodigo = banco.Column(banco.Integer)
 
     def __init__(self,
@@ -49,7 +47,7 @@ class MonitoramentoLoteModel(banco.Model):
         banco.session.add(monitoramento_lote)
         banco.session.commit()
 
-        codigo = banco.session.execute('innovation_ContarMonitoramentoLote_s').first()
+        codigo = banco.session.execute('innovation_ContarMonitoramentoLote_s').first()[0]
 
         token = RequisicaoModel.save_requisicao_monitoramento(codigo)
         return token
