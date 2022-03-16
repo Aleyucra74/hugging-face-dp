@@ -27,16 +27,27 @@ class RequisicaoModel(banco.Model):
 
     def json(self):
 
-        requisicao = {
+        data_inicio = 'Sem Data'
+        data_fim = 'Sem Data'
+
+        if self.rmlDataInicioVerificacao is not None:
+            data_inicio = "{}-{}-{}".format(self.rmlDataInicioVerificacao.year,
+                                            self.rmlDataInicioVerificacao.month,
+                                            self.rmlDataInicioVerificacao.day)
+
+        if self.rmlDataFimVerificacao is not None:
+            data_fim = "{}-{}-{}".format(self.rmlDataFimVerificacao.year,
+                                            self.rmlDataFimVerificacao.month,
+                                            self.rmlDataFimVerificacao.day)
+        return {
             'rmlCodigo': self.rmlCodigo,
             'molCodigo': self.molCodigo,
             'rmlService_ID': self.rmlService_ID,
             'arsCodigo': self.arsCodigo,
-            'rmlDataInicioVerificacao': self.rmlDataInicioVerificacao,
-            'rmlDataFimVerificacao': self.rmlDataFimVerificacao,
+            'rmlDataInicioVerificacao': data_inicio,
+            'rmlDataFimVerificacao': data_fim,
             'rmlMensagemErro': self.rmlMensagemErro
         }
-        return json.dumps(requisicao, default=str)
 
     @classmethod
     def find_requisicao(cls, rmlService_ID):
