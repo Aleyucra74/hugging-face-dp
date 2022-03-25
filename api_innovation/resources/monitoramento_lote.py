@@ -24,5 +24,6 @@ class MonitoramentoLote(Resource):
             filename = secure_filename(f.filename)
             f.save(os.path.join(config.UPLOAD_FOLDER + 'a_notas_fiscais/', filename))
             token = MonitoramentoLoteModel.save_lote(filename)
+
         return {'Service ID':token},200
 

@@ -1,6 +1,10 @@
 from sql_alchemy import banco
 from datetime import datetime
 from models.requisicao import RequisicaoModel
+from models.monitoramento_lote_item import MonitoramentoLoteItemModel
+
+import zipfile
+
 
 class MonitoramentoLoteModel(banco.Model):
     __tablename__ = 'tblMonitoramentoLote'
@@ -49,11 +53,10 @@ class MonitoramentoLoteModel(banco.Model):
 
         codigo = banco.session.execute('innovation_ContarMonitoramentoLote_s').first()[0]
 
+        if zipfile.is_zipfile(filename):
+            MonitoramentoLoteItemModel.save_lote_item_zip(filename,codigo)
+        else:
+            MonitoramentoLoteItemModel.save_lote_item(filename,codigo)
+
         token = RequisicaoModel.save_requisicao_monitoramento(codigo)
         return token
-
-
-    @classmethod
-    def delete_user(self, user):
-        banco.session.delete(user)
-        banco.session.commit()

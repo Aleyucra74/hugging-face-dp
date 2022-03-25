@@ -40,13 +40,13 @@ class RequisicaoModel(banco.Model):
                                             self.rmlDataFimVerificacao.month,
                                             self.rmlDataFimVerificacao.day)
         return {
-            'rmlCodigo': self.rmlCodigo,
-            'molCodigo': self.molCodigo,
-            'rmlService_ID': self.rmlService_ID,
-            'arsCodigo': self.arsCodigo,
-            'rmlDataInicioVerificacao': data_inicio,
-            'rmlDataFimVerificacao': data_fim,
-            'rmlMensagemErro': self.rmlMensagemErro
+            # 'rmlCodigo': self.rmlCodigo,
+            # 'molCodigo': self.molCodigo,
+            'service_id': self.rmlService_ID,
+            'ars_codigo': self.arsCodigo,
+            'data_inicio_verificacao': data_inicio,
+            'data_fim_verificacao': data_fim,
+            'mensagem_erro': self.rmlMensagemErro
         }
 
     @classmethod
@@ -65,6 +65,7 @@ class RequisicaoModel(banco.Model):
 
     @classmethod
     def save_requisicao_monitoramento(self, molCodigo):
+
         req = RequisicaoModel(molCodigo=molCodigo,
                               rmlService_ID=str(uuid.uuid4()),
                               arsCodigo=1,

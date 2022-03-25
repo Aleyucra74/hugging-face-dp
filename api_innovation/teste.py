@@ -1,4 +1,3 @@
-from datetime import datetime
+import mimetypes
 
-today = datetime.today()
-print("Today's date:", today)
+print(mimetypes.MimeTypes().guess_type('C:\\Users\\rysilva\\Documents\\INNOVATION\\hugging-face-dp\\api_innovation\\content\\operacao\\teste.pdf')[0])
