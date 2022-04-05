@@ -22,7 +22,7 @@ class MonitoramentoLote(Resource):
         f = request.files['file']
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            f.save(os.path.join(config.UPLOAD_FOLDER + 'a_notas_fiscais/', filename))
+            f.save(os.path.join(config.UPLOAD_FOLDER, filename))
             token = MonitoramentoLoteModel.save_lote(filename)
 
         return {'Service ID':token},200

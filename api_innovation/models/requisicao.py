@@ -1,6 +1,7 @@
 from sql_alchemy import banco
 import uuid
 from datetime import datetime
+from models.arquivo_status import ArquivoStatusModel
 import json
 
 class RequisicaoModel(banco.Model):
@@ -43,7 +44,7 @@ class RequisicaoModel(banco.Model):
             # 'rmlCodigo': self.rmlCodigo,
             # 'molCodigo': self.molCodigo,
             'service_id': self.rmlService_ID,
-            'ars_codigo': self.arsCodigo,
+            'status': ArquivoStatusModel.find_status(self.arsCodigo),
             'data_inicio_verificacao': data_inicio,
             'data_fim_verificacao': data_fim,
             'mensagem_erro': self.rmlMensagemErro

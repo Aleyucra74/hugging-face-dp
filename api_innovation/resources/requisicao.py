@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse, inputs
 from models.requisicao import RequisicaoModel
+from utils.excel import import_excel
 from flask_jwt_extended import jwt_required
 
 atributos = reqparse.RequestParser()
@@ -15,5 +16,6 @@ class Requisicao(Resource):
         req = RequisicaoModel.find_requisicao(service_ID)
         if req:
             return req.json()
+
         return {'message': 'request not found'}, 404
 

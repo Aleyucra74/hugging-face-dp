@@ -1,5 +1,7 @@
 from sql_alchemy import banco
 from datetime import datetime
+from zipfile import ZipFile
+import config
 
 class MonitoramentoLoteItemModel(banco.Model):
     __tablename__ = 'tblMonitoramentoLoteItem'
@@ -12,6 +14,7 @@ class MonitoramentoLoteItemModel(banco.Model):
     mliCriadoEm = banco.Column(banco.DateTime)
     mliDataFimImportacao = banco.Column(banco.DateTime)
     mliNome = banco.Column(banco.String(1000))
+    mliPredict = banco.Column(banco.String(60))
 
     def __init__(self,
                  molCodigo,
@@ -36,10 +39,10 @@ class MonitoramentoLoteItemModel(banco.Model):
         }
 
     @classmethod
-    def find_lote_item(cls, molCodigo):
-        user = cls.query.filter_by(molCodigo=molCodigo).first()
-        if user:
-            return user
+    def find_lote_items(cls, molCodigo):
+        lote_items = cls.query.filter_by(molCodigo=molCodigo).all()
+        if lote_items:
+            return lote_items
         return None
 
     @classmethod
@@ -55,11 +58,16 @@ class MonitoramentoLoteItemModel(banco.Model):
 
     @classmethod
     def save_lote_item_zip(self, filename, molCodigo):
-        monitoramento_lote_item = MonitoramentoLoteItemModel(molCodigo=molCodigo,
-                                                    arsCodigo=1,
-                                                    mliCriadoEm=datetime.today(),
-                                                    mliDataFimImportacao=datetime.today(),
-                                                    mliNome=filename)
 
-        banco.session.add(monitoramento_lote_item)
-        banco.session.commit()
+        with ZipFile(filename, 'r') as zipObj:
+            zipObj.extractall(config.PATH_DESCOMPACTADOS)
+
+            for elem in zipObj.namelist():
+                monitoramento_lote_item = MonitoramentoLoteItemModel(molCodigo=molCodigo,
+                                                        arsCodigo=1,
+                                                        mliCriadoEm=datetime.today(),
+                                                        mliDataFimImportacao=datetime.today(),
+                                                        mliNome=elem)
+
+                banco.session.add(monitoramento_lote_item)
+                banco.session.commit()

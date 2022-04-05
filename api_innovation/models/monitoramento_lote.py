@@ -3,7 +3,8 @@ from datetime import datetime
 from models.requisicao import RequisicaoModel
 from models.monitoramento_lote_item import MonitoramentoLoteItemModel
 
-import zipfile
+import mimetypes
+import config
 
 
 class MonitoramentoLoteModel(banco.Model):
@@ -52,9 +53,10 @@ class MonitoramentoLoteModel(banco.Model):
         banco.session.commit()
 
         codigo = banco.session.execute('innovation_ContarMonitoramentoLote_s').first()[0]
+        mimetype_arquivo = mimetypes.MimeTypes().guess_type(filename)[0]
 
-        if zipfile.is_zipfile(filename):
-            MonitoramentoLoteItemModel.save_lote_item_zip(filename,codigo)
+        if mimetype_arquivo == 'application/zip':
+            MonitoramentoLoteItemModel.save_lote_item_zip(config.UPLOAD_FOLDER+filename,codigo)
         else:
             MonitoramentoLoteItemModel.save_lote_item(filename,codigo)
 

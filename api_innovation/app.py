@@ -8,6 +8,7 @@ from resources.notas import Upload
 from resources.usuario import User, UserRegister, UserLogin, UserLogout
 from resources.monitoramento_lote import MonitoramentoLote
 from resources.requisicao import Requisicao
+from resources.extracao import ExtracaoDados
 from blocklist import BLOCKLIST
 
 app = Flask(__name__)
@@ -39,6 +40,7 @@ api.add_resource(UserLogin, '/login')
 api.add_resource(UserLogout, '/logout')
 api.add_resource(Requisicao, '/requisicao/<string:service_ID>')
 api.add_resource(MonitoramentoLote, '/monitoramento-lote')
+api.add_resource(ExtracaoDados, '/extracao-dados')
 
 if __name__=='__main__':
     from sql_alchemy import banco
