@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse, inputs
 from models.requisicao import RequisicaoModel
-from utils.excel import import_excel
+from utils.excel import import_excel, import_excel_array
+from flask import send_file
 from flask_jwt_extended import jwt_required
 
 atributos = reqparse.RequestParser()
@@ -15,6 +16,13 @@ class Requisicao(Resource):
     def get(self, service_ID):
         req = RequisicaoModel.find_requisicao(service_ID)
         if req:
+            if req.arsCodigo == 3:
+                requisicao_excel = RequisicaoModel.find_req_excel(req.molCodigo)
+                if req:
+                    filename = import_excel(requisicao_excel)
+                    return send_file(filename,attachment_filename='requisicaoRelatorio.xlsx')
+                return {'message': 'request not found'}, 404
+
             return req.json()
 
         return {'message': 'request not found'}, 404

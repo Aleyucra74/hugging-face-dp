@@ -1,8 +1,7 @@
 import secrets
 import urllib.parse
 
-# UPLOAD_FOLDER = 'C:\\Users\\rysilva\\Desktop\\api_innovation\\content\\operacao\\'
-UPLOAD_FOLDER = 'C:\\Users\\rysilva\\Documents\\INNOVATION\\hugging-face-dp\\api_innovation\\content\\operacao\\a_notas_fiscais\\'
+UPLOAD_FOLDER = r'\\Brdcvmtaxanapd\innovation\operacao\a_notas_fiscais'
 
 # ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'zip'}
 ALLOWED_EXTENSIONS = {'pdf', 'zip'}
@@ -18,25 +17,17 @@ GABARITO = ['0001', '0005', '004', '02', '06', '12', '13', '15', '17', '18',
        'rua', 'santos', 'servigos', 'sorocaba', 'sul', 'telecomunicagoes',
        'vitoria']
 
-PATH_MODELPKL = 'C:\\Users\\rysilva\\Desktop\\api_innovation\\content\\operacao\\modelos\\model_pkl'
+PATH_MODELPKL = r'\\Brdcvmtaxanapd\innovation\model\model_pkl'
 
-PATH_EXCEL = 'C:\\Users\\rysilva\\Documents\\INNOVATION\\hugging-face-dp\\api_innovation\\content\\operacao\\excel\\'
+PATH_IMAGES = r'\\Brdcvmtaxanapd\innovation\operacao\images'
+
+PATH_EXCEL = r'\Brdcvmtaxanapd\innovation\operacao\excel'
 
 PATH_TESSERACT = r'C:\Users\rysilva\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+PATH_TESSDATA = r'C:\Users\rysilva\AppData\Local\Programs\Tesseract-OCR\tessdata'
 
-POPPLET_PATH = r"C:\Users\rysilva\Downloads\poppler-21.11.0\Library\bin"
+POPPLET_PATH = r"\\Brdcvmtaxanapd\innovation\poppler\Library\bin"
 
-PARAMS = urllib.parse.quote_plus("DRIVER={SQL Server};SERVER=BRDCVMTAXANDBD;DATABASE=INNOVATION;Trusted_Connection=yes")
+PARAMS = urllib.parse.quote_plus("DRIVER={SQL Server};SERVER=BRDCVMTAXANDBD\TAXDESENV;DATABASE=INNOVATION;Trusted_Connection=yes")
 
-PATH_DESCOMPACTADOS = r'C:\Users\rysilva\Documents\INNOVATION\hugging-face-dp\api_innovation\content\operacao\descompactados'
-
-questions_nfse = [
-  "Qual o CNPJ do Tomador de Serviço?",
-  "Qual o CNPJ do Prestador de Serviço?",
-  "Qual o Número da Nota/Nº ?",
-  "Qual a Data de Emissão da Nota Fiscal?",
-  "Qual a Hora de Emissão da Nota Fiscal?",
-  "Qual o Código de Verificação?",
-  "Qual o Código de Serviço?",
-  "Qual o Valor dos serviços/Valor Total da Nota?",
-]
+PATH_DESCOMPACTADOS = r'\\Brdcvmtaxanapd\innovation\operacao\descompactados'

@@ -1,55 +1,49 @@
-from sql_alchemy import banco
-from datetime import datetime
-from zipfile import ZipFile
-import config
+from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
 
-class MonitoramentoLoteItemModel(banco.Model):
+Base = declarative_base()
+
+class MonitoramentoLoteItemModel(Base):
     __tablename__ = 'tblMonitoramentoLoteItem'
 
-    mliCodigo = banco.Column(banco.Integer, primary_key=True)
-    molCodigo = banco.Column(banco.Integer)
-    mliMensagemStatus = banco.Column(banco.String(200))
-    mliObservacao = banco.Column(banco.String(200))
-    arsCodigo = banco.Column(banco.Integer)
-    mliCriadoEm = banco.Column(banco.DateTime)
-    mliDataFimImportacao = banco.Column(banco.DateTime)
-    mliNome = banco.Column(banco.String(1000))
-    mliPredict = banco.Column(banco.String(60))
+    mliCodigo = Column(Integer, primary_key=True)
+    molCodigo = Column(Integer)
+    mliMensagemStatus = Column(String(200))
+    mliObservacao = Column(String(200))
+    arsCodigo = Column(Integer)
+    mliCriadoEm = Column(DateTime)
+    mliDataFimImportacao = Column(DateTime)
+    mliNome = Column(String(1000))
+    mliPredict = Column(String(60))
 
-    def __init__(self,
-                 molCodigo,
-                 arsCodigo,
-                 mliCriadoEm,
-                 mliDataFimImportacao,
-                 mliNome):
-        self.molCodigo = molCodigo
-        self.arsCodigo = arsCodigo
-        self.mliCriadoEm = mliCriadoEm
-        self.mliDataFimImportacao = mliDataFimImportacao
-        self.mliNome = mliNome
-
-    @classmethod
-    def find_all_lote(cls):
-        lote_items = cls.query.all()
-        if lote_items:
-            return lote_items
-        return None
-
-    @classmethod
-    def save_lote_item(self, filename, molCodigo):
-        monitoramento_lote_item = MonitoramentoLoteItemModel(molCodigo=molCodigo,
-                                                    arsCodigo=1,
-                                                    mliCriadoEm=datetime.today(),
-                                                    mliDataFimImportacao=datetime.today(),
-                                                    mliNome=filename)
-
-        banco.session.add(monitoramento_lote_item)
-        banco.session.commit()
-
-    @classmethod
-    def save_predict_file(cls, mliCodigo, template):
-        monitoramento_lote_item = cls.query.filter_by(mliCodigo=mliCodigo).first()
-        monitoramento_lote_item.mliPredict = str(template['text'])
-
-        banco.session.add(monitoramento_lote_item)
-        banco.session.commit()
+# def find_all_lote(session):
+#     lote_items = session.query(MonitoramentoLoteItemModel).all()
+#     if lote_items:
+#         return lote_items
+#     return None
+#
+#
+# def save_lote_item_molCodigo(session, filename, molCodigo):
+#     monitoramento_lote_item = MonitoramentoLoteItemModel(molCodigo=molCodigo,
+#                                                          arsCodigo=1,
+#                                                          mliCriadoEm=datetime.today(),
+#                                                          mliDataFimImportacao=datetime.today(),
+#                                                          mliNome=filename)
+#
+#     session.add(monitoramento_lote_item)
+#     session.commit()
+#
+#
+# def save_erro_lote_item(session, molCodigo, erro):
+#     session.query(MonitoramentoLoteItemModel).filter(molCodigo=molCodigo) \
+#         .first().update({'mliObservacao': erro}, {'arsCodigo': 4})
+#
+#     session.commit()
+#
+#
+# def save_predict_file(session, mliCodigo, template):
+#     monitoramento_lote_item = session.query(MonitoramentoLoteItemModel).filter_by(mliCodigo=mliCodigo).first()
+#     monitoramento_lote_item.mliPredict = str(template['text'])
+#
+#     session.add(monitoramento_lote_item)
+#     session.commit()

@@ -14,14 +14,19 @@ from sklearn.feature_extraction.text import CountVectorizer
 import config
 
 model_name = 'pierreguillou/bert-large-cased-squad-v1.1-portuguese'
-nlp = pipeline("question-answering", model=model_name)
+nlp = pipeline("question-answering", model=config.PATH_HUGGING_FACE)
 answers={}
 
 def answers_hugging_face(path, filename):
-  image_path = convert_from_path(path+f'a_notas_fiscais/{filename}',500, output_folder=path+'images/',fmt='jpeg',output_file=filename)
-  img = cv2.imread(path+f'images/{filename}0001-1.jpg')
+  tessdata_dir_config = '--tessdata-dir "C:\\Users\\rysilva\\AppData\\Local\\Programs\\Tesseract-OCR\\tessdata"'
+
+  image_path = convert_from_path(path,500, output_folder=config.PATH_IMAGES,fmt='jpeg',output_file=filename,
+                                 poppler_path=config.POPPLET_PATH)
+  img = cv2.imread(config.PATH_IMAGES+f'/{filename}0001-1.jpg')
   img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-  text = pytesseract.image_to_string(img)
+
+  pytesseract.pytesseract.tesseract_cmd = config.PATH_TESSERACT
+  text = pytesseract.image_to_string(img, config=tessdata_dir_config)
 
   answers["texto"] = text
 

@@ -12,17 +12,11 @@ atributos.add_argument('molCaminhoArquivo', type=str, required=True, help="The f
 class MonitoramentoLote(Resource):
 
     # @jwt_required()
-    # def get(self, service_ID):
-    #     req = RequisicaoModel.find_requisicao(service_ID)
-    #     if req:
-    #         return req.json()
-    #     return {'message': 'request not found'}, 404
-
     def post(self):
         f = request.files['file']
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            f.save(os.path.join(config.UPLOAD_FOLDER, filename))
+            f.save(os.path.join(config.UPLOAD_FOLDER +filename))
             token = MonitoramentoLoteModel.save_lote(filename)
 
         return {'Service ID':token},200

@@ -5,6 +5,7 @@ from models.monitoramento_lote_item import MonitoramentoLoteItemModel
 
 import mimetypes
 import config
+import os
 
 
 class MonitoramentoLoteModel(banco.Model):
@@ -56,7 +57,7 @@ class MonitoramentoLoteModel(banco.Model):
         mimetype_arquivo = mimetypes.MimeTypes().guess_type(filename)[0]
 
         if mimetype_arquivo == 'application/zip':
-            MonitoramentoLoteItemModel.save_lote_item_zip(config.UPLOAD_FOLDER+filename,codigo)
+            MonitoramentoLoteItemModel.save_lote_item_zip(os.path.join(config.UPLOAD_FOLDER,filename),codigo)
         else:
             MonitoramentoLoteItemModel.save_lote_item(filename,codigo)
 

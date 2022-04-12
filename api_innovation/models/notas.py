@@ -13,7 +13,7 @@ def transform_nota_text(filename):
     frompath = UPLOAD_FOLDER + 'a_notas_fiscais\\' + filename
     topath = UPLOAD_FOLDER + 'images'
     image_path = convert_from_path(frompath, 500, output_folder=topath, fmt='jpeg', output_file=filename,
-                                   poppler_path=r"C:\Users\rysilva\Downloads\poppler-21.11.0\Library\bin")
+                                   poppler_path=config.POPPLET_PATH)
     img = cv2.imread(UPLOAD_FOLDER + f'images/{filename}0001-1.jpg')
     height, width, channels = img.shape
     y1 = int(height * 0.13)

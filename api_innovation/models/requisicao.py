@@ -77,6 +77,13 @@ class RequisicaoModel(banco.Model):
 
         return req.rmlService_ID
 
+    @classmethod
+    def find_req_excel(cls, molCodigo):
+        lista_excel = banco.session.execute('innovation_GetRequisicaoExcel_s').all()
+        if lista_excel:
+            return lista_excel
+        return None
+
 
     @classmethod
     def delete_requisicao(self, req):

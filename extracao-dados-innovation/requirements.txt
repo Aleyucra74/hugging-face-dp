@@ -8,3 +8,4 @@ fuzzywuzzy==0.18.0
 transformers==4.17.0
 pyodbc==4.0.32
 Flask==2.1.1
+SQLAlchemy==1.4.34

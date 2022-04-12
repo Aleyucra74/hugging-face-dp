@@ -1,7 +1,7 @@
 import secrets
 import urllib.parse
 
-UPLOAD_FOLDER = r'content\operacao\a_notas_fiscais'
+UPLOAD_FOLDER = r'\\Brdcvmtaxanapd\innovation\operacao\a_notas_fiscais'
 
 ALLOWED_EXTENSIONS = {'pdf', 'zip'}
 
@@ -16,17 +16,21 @@ GABARITO = ['0001', '0005', '004', '02', '06', '12', '13', '15', '17', '18',
        'rua', 'santos', 'servigos', 'sorocaba', 'sul', 'telecomunicagoes',
        'vitoria']
 
-PATH_MODELPKL = r'C:\Users\rysilva\Desktop\api_innovation\content\operacao\modelos\model_pkl'
+PATH_MODELPKL = r'\\Brdcvmtaxanapd\innovation\model\model_pkl'
 
-PATH_EXCEL = r'C:\Users\rysilva\Documents\INNOVATION\hugging-face-dp\api_innovation\content\operacao\excel'
+PATH_IMAGES = r'\\Brdcvmtaxanapd\innovation\operacao\images'
+
+PATH_EXCEL = r'\Brdcvmtaxanapd\innovation\operacao\excel'
 
 PATH_TESSERACT = r'C:\Users\rysilva\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
-POPPLET_PATH = r"content/poppler/Library/bin"
+POPPLET_PATH = r"\\Brdcvmtaxanapd\innovation\poppler\Library\bin"
 
-PARAMS = urllib.parse.quote_plus("DRIVER={SQL Server};SERVER=BRDCVMTAXANDBD;DATABASE=INNOVATION;Trusted_Connection=yes")
+PARAMS = urllib.parse.quote_plus("DRIVER={SQL Server};SERVER=BRDCVMTAXANDBD\TAXDESENV;DATABASE=INNOVATION;Trusted_Connection=yes")
 
-PATH_DESCOMPACTADOS = r'content\operacao\descompactados'
+PATH_DESCOMPACTADOS = r'\\Brdcvmtaxanapd\innovation\operacao\descompactados'
+
+tessdata_dir_config = '--tessdata-dir "C:\\Users\\rysilva\\AppData\\Local\\Programs\\Tesseract-OCR\\tessdata"'
 
 questions_nfse = [
   "Qual o CNPJ do Tomador de Serviço?",
@@ -36,5 +40,10 @@ questions_nfse = [
   "Qual a Hora de Emissão da Nota Fiscal?",
   "Qual o Código de Verificação?",
   "Qual o Código de Serviço?",
-  "Qual o Valor dos serviços/Valor Total da Nota?",
+  "Qual o Valor Total do serviço?",
+  "Qual o Valor dos PIS?",
+  "Qual o Enderço do Tomador?",
+  "Qual o Enderço do Prestador?",
 ]
+
+PATH_HUGGING_FACE = r'\\Brdcvmtaxanapd\INNOVATION\model'
